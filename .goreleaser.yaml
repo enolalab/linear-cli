@@ -1,0 +1,77 @@
+version: 2
+
+project_name: linear-cli
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: .
+    binary: linear-cli
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X github.com/enolalab/linear-cli/cmd.version={{.Version}}
+      - -X github.com/enolalab/linear-cli/cmd.commit={{.ShortCommit}}
+      - -X github.com/enolalab/linear-cli/cmd.date={{.Date}}
+      - -X github.com/enolalab/linear-cli/internal/api.Version={{.Version}}
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+      - "^chore:"
+
+brews:
+  - repository:
+      owner: k0walski
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    directory: Formula
+    homepage: "https://github.com/enolalab/linear-cli"
+    description: "CLI for Linear — designed for AI Agents"
+    license: "MIT"
+    install: |
+      bin.install "linear-cli"
+    test: |
+      system "#{bin}/linear-cli", "version"
+
+release:
+  prerelease: auto
+  footer: |
+    ## Installation
+
+    **Homebrew (macOS/Linux):**
+    ```
+    brew install k0walski/tap/linear-cli
+    ```
+
+    **Go install:**
+    ```
+    go install github.com/enolalab/linear-cli@{{ .Tag }}
+    ```
+
+    **Manual download:**
+    Download the appropriate binary from the assets below.
