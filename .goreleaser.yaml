@@ -44,29 +44,10 @@ changelog:
       - "^ci:"
       - "^chore:"
 
-brews:
-  - repository:
-      owner: k0walski
-      name: homebrew-tap
-      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
-    directory: Formula
-    homepage: "https://github.com/enolalab/linear-cli"
-    description: "CLI for Linear — designed for AI Agents"
-    license: "MIT"
-    install: |
-      bin.install "linear-cli"
-    test: |
-      system "#{bin}/linear-cli", "version"
-
 release:
   prerelease: auto
   footer: |
     ## Installation
-
-    **Homebrew (macOS/Linux):**
-    ```
-    brew install k0walski/tap/linear-cli
-    ```
 
     **Go install:**
     ```
