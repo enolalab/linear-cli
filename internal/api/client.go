@@ -90,7 +90,7 @@ func (c *Client) Execute(query string, variables map[string]interface{}, target 
 	if err != nil {
 		return cliErr.NewNetworkError("failed to connect to Linear API", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	respBytes, err := io.ReadAll(resp.Body)
 	if err != nil {

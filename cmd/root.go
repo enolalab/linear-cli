@@ -68,7 +68,7 @@ var versionCmd = &cobra.Command{
 func Execute() int {
 	// Initialize config.
 	if err := config.Init(); err != nil {
-		fmt.Fprintf(rootCmd.ErrOrStderr(), "warning: failed to load config: %v\n", err)
+		_, _ = fmt.Fprintf(rootCmd.ErrOrStderr(), "warning: failed to load config: %v\n", err)
 	}
 
 	rootCmd.AddCommand(versionCmd)

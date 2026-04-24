@@ -129,7 +129,7 @@ Output JSON:
 		if putErr != nil {
 			return cliErr.NewNetworkError("failed to upload file", putErr)
 		}
-		defer putResp.Body.Close()
+		defer func() { _ = putResp.Body.Close() }()
 
 		if putResp.StatusCode >= 400 {
 			body, _ := io.ReadAll(putResp.Body)
