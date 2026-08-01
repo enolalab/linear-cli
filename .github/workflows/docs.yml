@@ -1,0 +1,47 @@
+name: Documentation
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ["website/**", ".github/workflows/docs.yml"]
+  push:
+    branches: [main]
+    paths: ["website/**", ".github/workflows/docs.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+      - run: npm ci --prefix website
+      - run: npm run build --prefix website
+      - uses: actions/upload-artifact@v4
+        with:
+          name: website-build
+          path: website/build
+          if-no-files-found: error
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: website-build
+          path: website/build
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy website/build --project-name=linear-cli-docs --branch=main
+      - name: Smoke test production site
+        run: curl --fail --retry 5 --retry-delay 5 --retry-connrefused https://linear-cli.enolalab.com/
