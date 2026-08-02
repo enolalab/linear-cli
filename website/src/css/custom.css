@@ -1,0 +1,25 @@
+:root {
+  --ifm-color-primary: #5e6ad2;
+  --ifm-color-primary-dark: #4d59c8;
+  --ifm-color-primary-darker: #4753bd;
+  --ifm-color-primary-light: #7480db;
+  --ifm-code-font-size: 92%;
+  --ifm-font-family-base: Inter, ui-sans-serif, system-ui, sans-serif;
+  --ifm-heading-font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+html[data-theme='dark'] {
+  --ifm-background-color: #111116;
+  --ifm-background-surface-color: #1a1a21;
+  --ifm-color-primary: #9ba4ff;
+  --ifm-navbar-background-color: #16161c;
+}
+
+.hero {
+  padding: 5rem 0 3.5rem;
+  background: radial-gradient(circle at 18% 18%, rgba(94, 106, 210, 0.22), transparent 33%);
+}
+
+.hero__title { letter-spacing: -0.04em; }
+
+table { display: table; width: 100%; }
