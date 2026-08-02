@@ -2,7 +2,7 @@
 
 > CLI for [Linear](https://linear.app) — designed for AI Agents.
 
-A command-line interface for the Linear project management tool that serves as a drop-in replacement for Linear's MCP (Model Context Protocol). Built primarily for AI Agents, it provides structured JSON output, meaningful exit codes, and zero interactive prompts.
+A simple command-line interface for the Linear project management tool that serves as a drop-in replacement for Linear's MCP (Model Context Protocol). Built primarily for AI Agents, it provides structured JSON output, meaningful exit codes, and zero interactive prompts.
 
 ## Why linear-cli?
 
