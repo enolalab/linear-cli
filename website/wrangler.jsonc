@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "linear-cli-docs",
+  "compatibility_date": "2026-08-02",
+  "assets": {
+    "directory": "./build"
+  },
+  "routes": [
+    {
+      "pattern": "linear-cli.enolalab.com",
+      "custom_domain": true
+    }
+  ]
+}
