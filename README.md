@@ -17,12 +17,6 @@ A simple command-line interface for the Linear project management tool that serv
 
 ## Installation
 
-### Homebrew (macOS / Linux)
-
-```bash
-brew install k0walski/tap/linear-cli
-```
-
 ### Go install
 
 ```bash
